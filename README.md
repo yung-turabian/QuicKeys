@@ -1,30 +1,33 @@
 # P-word
 
-![alt text](logo.png "Logo")
+Keychain is a terminal app for secure and personal password management. Built with C++.
 
-P-word is a C++ app for secure and personal password management.
+![alt text](logo.png "Logo")
 
 ## Installation
 
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
 
+# On MacOS
 ```bash
-pip install foobar
+brew install keychain
+```
+
+# Arch
+```bash
+sudo pacman -S keychain
+```
+
+# Ubuntu
+```bash
+sudo apt install keychain
 ```
 
 ## Usage
 
-```python
-import foobar
+```bash
+$ keychain
 
-# returns 'words'
-foobar.pluralize('word')
-
-# returns 'geese'
-foobar.pluralize('goose')
-
-# returns 'phenomenon'
-foobar.singularize('phenomena')
 ```
 
 ## Contributing
