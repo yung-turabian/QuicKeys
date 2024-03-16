@@ -2,7 +2,7 @@
 
 Keychain is a terminal app for secure and personal password management. Built with C++.
 
-![alt text](logo.png "Logo")
+<img src="logo.png" alt="logo" width="200"/>
 
 ## Installation
 
