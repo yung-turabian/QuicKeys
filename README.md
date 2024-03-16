@@ -35,3 +35,7 @@ Please make sure to update tests as appropriate.
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
+
+## Attribution
+
+[House key icons created by Freepik - Flaticon](https://www.flaticon.com/free-icons/house-key "house key icons")
