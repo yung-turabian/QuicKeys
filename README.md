@@ -6,7 +6,7 @@ Keychain is a terminal app for secure and personal password management. Built wi
 
 ## Installation
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
+Use the respective OS package manager (Will include build instructions).
 
 # On MacOS
 ```bash
