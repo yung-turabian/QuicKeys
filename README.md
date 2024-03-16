@@ -1,5 +1,7 @@
 # P-word
 
+![alt text](logo.png "Logo")
+
 P-word is a C++ app for secure and personal password management.
 
 ## Installation
