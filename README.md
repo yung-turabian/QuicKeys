@@ -1,4 +1,4 @@
-# P-word
+# Keychain
 
 Keychain is a terminal app for secure and personal password management. Built with C++.
 
