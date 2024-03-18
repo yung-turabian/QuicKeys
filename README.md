@@ -20,13 +20,8 @@ $ rm -rf keychain
 ```bash
 $ keychain
 
-```
+Please Enter Decryption key:  
 
-```bash
-$ Please Enter Decryption key:  
-```
-
-```bash
 [1] Show credentials
 [2] Add credentials
 [3] Edit credentials
