@@ -6,21 +6,13 @@ Keychain is a terminal app for secure and personal password management. Built wi
 
 ## Installation
 
-Use the respective OS package manager (Will include build instructions).
+Below I've provided build instructions as I've yet to work with package management installers. Looking into NixOS currently.
 
-# On MacOS
+# Build
 ```bash
-brew install keychain
-```
-
-# Arch
-```bash
-sudo pacman -S keychain
-```
-
-# Ubuntu
-```bash
-sudo apt install keychain
+$ git clone https://github.com/yung-turabian/keychain.git
+$ sudo make install -C keychain
+$ rm -rf keychain
 ```
 
 ## Usage
