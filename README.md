@@ -22,6 +22,23 @@ $ keychain
 
 ```
 
+```bash
+$ Please Enter Decryption key:  
+```
+
+```bash
+[1] Show credentials
+[2] Add credentials
+[3] Edit credentials
+[4] Delete credentials
+[5] Change database password
+[6] Backup database
+[7] Erase database
+[8] Exit
+
+keychain~$ 1
+```
+
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first
