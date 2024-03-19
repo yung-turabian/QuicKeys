@@ -1,6 +1,6 @@
-# Keychain
+# keymgr
 
-Keychain is a terminal app for secure and personal password management. Built with C++.
+keymgr is a terminal app for secure and personal password management. Built with C++.
 
 <img src="logo.png" alt="logo" width="200"/>
 
@@ -10,15 +10,15 @@ Below I've provided build instructions as I've yet to work with package manageme
 
 # Build
 ```bash
-$ git clone https://github.com/yung-turabian/keychain.git
-$ sudo make install -C keychain
-$ rm -rf keychain
+$ git clone https://github.com/yung-turabian/keymgr.git
+$ sudo make install -C keymgr
+$ rm -rf keymgr
 ```
 
 ## Usage
 
 ```bash
-$ keychain
+$ keymgr
 
 Please Enter Decryption key:
 
