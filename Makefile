@@ -1,12 +1,17 @@
 CC=g++
 CFLAGS=-std=gnu++17 -lssl -lcrypto -lncurses
-TARGET=keychain
+TARGET=keymgr
 
-$(TARGET): keychain.cpp
-	$(CC) $(CFLAGS) -o $(TARGET) keychain.cpp
+$(TARGET): keymgr.cpp
+	$(CC) $(CFLAGS) -o $(TARGET) keymgr.cpp
 
 install:
 	@echo "Installing..."
-	@chmod +x keychain
-	@cp keychain /usr/local/bin/
+	@chmod +x keymgr
+	@cp keymgr /usr/local/bin/
+	@echo "Done!"
+
+uninstall:
+	@echo "Uninstalling..."
+	@rm /usr/local/bin/keymgr
 	@echo "Done!"
