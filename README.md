@@ -10,15 +10,15 @@ Below I've provided build instructions as I've yet to work with package manageme
 
 # Build
 ```bash
-$ git clone https://github.com/yung-turabian/keymgr.git
-$ sudo make install -C keymgr
-$ rm -rf keymgr
+$ git clone https://github.com/yung-turabian/skey.git
+$ sudo make install -C skey
+$ rm -rf skey
 ```
 
 ## Usage
 
 ```bash
-$ keymgr
+$ skey
 
 Please Enter Decryption key:
 
@@ -31,7 +31,7 @@ Please Enter Decryption key:
 [7] Erase database
 [8] Exit
 
-keychain~$ 1
+SecureKey~$ 1
 ```
 
 ## Contributing
@@ -43,7 +43,7 @@ Please make sure to update tests as appropriate.
 
 ## License
 
-[MIT](https://choosealicense.com/licenses/mit/)
+[GNU](https://choosealicense.com/licenses/mit/](https://choosealicense.com/licenses/gpl-3.0/)
 
 ## Attribution
 
