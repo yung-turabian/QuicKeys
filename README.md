@@ -17,6 +17,8 @@ $ rm -rf skey
 
 ## Usage
 
+The way SecureKey works is that on UNIX machines a .passwords file will be created in the home directory where the encrypted passwords will be stored. On Windows the same will occur but instead in the current user's directory. 
+
 ```bash
 $ skey
 
