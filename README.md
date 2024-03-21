@@ -1,6 +1,6 @@
-# keymgr
+# SecureKey (or skey)
 
-keymgr is a terminal app for secure and personal password management. Built with C++.
+is a terminal app for secure and personal password management. Built with C++.
 
 <img src="logo.png" alt="logo" width="200"/>
 
