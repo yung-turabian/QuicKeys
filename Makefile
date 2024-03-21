@@ -1,17 +1,17 @@
 CC=g++
 CFLAGS=-std=gnu++17 -lssl -lcrypto -lncurses
-TARGET=keymgr
+TARGET=skey
 
-$(TARGET): keymgr.cpp
-	$(CC) $(CFLAGS) -o $(TARGET) keymgr.cpp
+$(TARGET): skey.cpp
+	$(CC) $(CFLAGS) -o $(TARGET) skey.cpp
 
 install:
 	@echo "Installing..."
-	@chmod +x keymgr
-	@cp keymgr /usr/local/bin/
+	@chmod +x skey
+	@cp skey /usr/local/bin/
 	@echo "Done!"
 
 uninstall:
 	@echo "Uninstalling..."
-	@rm /usr/local/bin/keymgr
+	@rm /usr/local/bin/skey
 	@echo "Done!"

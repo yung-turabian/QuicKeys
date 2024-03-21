@@ -108,22 +108,22 @@ private:
   // Points to home directory on Windows or UNIX
   string homeDir;
   string pathToDatabase;
-  string db_key_hash;
+  string databaseKeyHash;
   string ciphertext;
-  string decryption_key;
-  string password_hash;
+  string decryptionKey;
+  string passwordHash;
   string content;
-  int records_count;
+  int recordsCount;
 
-  void decrypt_db() {
+  void decryptDatabase() {
     // Decrypting with AES-CBC
     if (!ciphertext.empty()) {
       AES_KEY aes_key;
       AES_set_decrypt_key(
-          reinterpret_cast<const unsigned char *>(decryption_key.c_str()), 128,
+          reinterpret_cast<const unsigned char *>(decryptionKey.c_str()), 128,
           &aes_key);
 
-      string iv = decryption_key.substr(0, AES_BLOCK_SIZE);
+      string iv = decryptionKey.substr(0, AES_BLOCK_SIZE);
       vector<unsigned char> ivVec(iv.begin(), iv.end());
 
       vector<unsigned char> decrypted;
@@ -140,26 +140,26 @@ private:
 
       content = string(decrypted.begin(), decrypted.end());
 
-      records_count = countRecords(content, '|');
-      cout << "\u2714 " << records_count << " records found" << endl;
+      recordsCount = countRecords(content, '|');
+      cout << "\u2714 " << recordsCount << " records found" << endl;
     } else {
       content = "";
-      records_count = 0;
+      recordsCount = 0;
       cout << "Database has no records.";
     }
-    display_options();
+    displayOptions();
   }
 
   void saveDatabase() {
     ofstream db_handle(pathToDatabase, ios::binary);
     vector<unsigned char> ciphertext;
-    if (records_count != 0) {
+    if (recordsCount != 0) {
       AES_KEY aes_key;
       AES_set_encrypt_key(
-          reinterpret_cast<const unsigned char *>(decryption_key.c_str()), 128,
+          reinterpret_cast<const unsigned char *>(decryptionKey.c_str()), 128,
           &aes_key);
 
-      string iv = decryption_key.substr(0, 16); // First 16 bytes as IV
+      string iv = decryptionKey.substr(0, 16); // First 16 bytes as IV
       std::vector<unsigned char> ivVec(iv.begin(), iv.end());
 
       // Pad the content
@@ -173,13 +173,13 @@ private:
                       AES_ENCRYPT);
     }
 
-    db_handle.write(db_key_hash.c_str(), db_key_hash.size());
+    db_handle.write(databaseKeyHash.c_str(), databaseKeyHash.size());
     db_handle.write(reinterpret_cast<const char *>(ciphertext.data()),
                     ciphertext.size());
     db_handle.close();
   }
 
-  string check_database() {
+  string checkDatabase() {
     cout << "$ '/.passwords' not found in User files\n";
     for (int _ = 0; _ < 3; ++_) {
       cout << "$ Please enter the absolute path to '/.passwords' or press "
@@ -203,7 +203,7 @@ private:
     return "not_found";
   }
 
-  void display_options() {
+  void displayOptions() {
     while (1) {
       cout << "\n[1] Show credentials" << endl;
       cout << "[2] Add credentials" << endl;
@@ -214,7 +214,7 @@ private:
       cout << "[7] Erase database" << endl;
       cout << "[8] Exit" << endl;
       int option;
-      cout << "\nkeychain~$ ";
+      cout << "\nSecureKey~$ ";
       cin >> option;
 
       if (option == 1) {
@@ -241,7 +241,7 @@ private:
   }
 
   void showCredentials() {
-    if (records_count == 0) {
+    if (recordsCount == 0) {
       cout << "Database has no records";
     }
 
@@ -278,21 +278,21 @@ private:
       string password2;
       string platform;
 
-      cout << "username/email: ";
+      cout << "Username/Email: ";
       cin >> username_or_email;
-      cout << "password: ";
+      cout << "Password: ";
       cin >> password1;
-      cout << "retype password: ";
+      cout << "Retype password: ";
       cin >> password2;
       if (password1 != password2) {
-        cout << "passwords do not match";
+        cout << "Passwords do not match";
         continue;
       }
-      cout << "platform: ";
+      cout << "Platform: ";
       cin >> platform;
 
       std::stringstream ss;
-      if (records_count == 0) {
+      if (recordsCount == 0) {
         ss << "1-" << username_or_email << "-" << password1 << "-" << platform;
         content = ss.str();
       } else {
@@ -302,9 +302,9 @@ private:
            << "-" << platform;
         content += "|" + ss.str();
       }
-      records_count++;
+      recordsCount++;
       saveDatabase();
-      std::cout << "Record added ✔" << std::endl;
+      std::cout << "Record added" << std::endl;
       break;
     }
   }
@@ -321,7 +321,7 @@ private:
   }
 
   void editCredentials() {
-    if (records_count != 0) {
+    if (recordsCount != 0) {
       showCredentials();
       int recordIdToEdit = -1;
       for (int i = 4; i > 0; i--) {
@@ -388,7 +388,7 @@ private:
   }
 
   void deleteCredentials() {
-    if (records_count != 0) {
+    if (recordsCount != 0) {
       showCredentials();
       int recordIdToDelete = -1;
       for (int i = 4; i > 0; i--) {
@@ -409,7 +409,7 @@ private:
         if (recordIndex != -1) {
           vector<string> new_records = split(content, '|');
           new_records.erase(new_records.begin() + recordIndex);
-          records_count--;
+          recordsCount--;
           content = join(new_records, '|');
           saveDatabase();
           cout << "Record deleted" << endl;
@@ -430,7 +430,7 @@ private:
       cin >> current_password;
       current_password = padDatabaseKey(current_password);
       string current_password_hash = calculateSHA256(current_password);
-      if (current_password_hash != db_key_hash) {
+      if (current_password_hash != databaseKeyHash) {
         cerr << "Current password is incorrect" << endl;
         continue;
       }
@@ -450,8 +450,8 @@ private:
       }
       new_password = padDatabaseKey(new_password);
       string new_password_hash = calculateSHA256(new_password);
-      decryption_key = new_password;
-      db_key_hash = new_password_hash;
+      decryptionKey = new_password;
+      databaseKeyHash = new_password_hash;
       saveDatabase();
       cout << "Decryption key updated successfully" << endl;
       break;
@@ -459,13 +459,13 @@ private:
   }
 
   void backupDatabase() {
-    if (records_count != 0) {
+    if (recordsCount != 0) {
       for (int i = 0; i < 3; ++i) {
         string _decryptionKey = getpass("Database decryption key: ");
 
         string _decryptionKeyHash =
             calculateSHA256(padDatabaseKey(_decryptionKey));
-        if (db_key_hash == _decryptionKeyHash) {
+        if (databaseKeyHash == _decryptionKeyHash) {
           ifstream source(pathToDatabase, ios::binary);
           ofstream dest("./passwords.db.bak", ios::binary);
           dest << source.rdbuf();
@@ -482,15 +482,15 @@ private:
   }
 
   void eraseDatabase() {
-    if (records_count != 0) {
+    if (recordsCount != 0) {
       for (int i = 0; i < 3; ++i) {
         string _decryptionKey = getpass("Database decryption key: ");
 
         string _decryptionKeyHash =
             calculateSHA256(padDatabaseKey(_decryptionKey));
-        if (db_key_hash == _decryptionKeyHash) {
+        if (databaseKeyHash == _decryptionKeyHash) {
           content = "";
-          records_count = 0;
+          recordsCount = 0;
           saveDatabase();
           cout << "Database erased\n";
           break;
@@ -527,7 +527,7 @@ public:
         throw(pathToDatabase);
       }
     } catch (string badPath) {
-      pathToDatabase = check_database();
+      pathToDatabase = checkDatabase();
       ifstream db_handle(pathToDatabase);
       db_handle.close();
     }
@@ -535,20 +535,20 @@ public:
     ifstream db_handle(pathToDatabase, ios::binary);
     db_handle.read(key_buffer, 64);
     key_buffer[64] = '\0';
-    db_key_hash = key_buffer;
+    databaseKeyHash = key_buffer;
     stringstream file_buffer;
     file_buffer << db_handle.rdbuf();
     ciphertext = file_buffer.str();
 
     for (int i = 4; i > 0; i--) {
-      decryption_key = getpass("Please Enter Decryption key: ");
-      decryption_key = padDatabaseKey(decryption_key);
+      decryptionKey = getpass("Please Enter Decryption key: ");
+      decryptionKey = padDatabaseKey(decryptionKey);
       // Calculate SAH-256 sum for given passwd
-      password_hash = calculateSHA256(decryption_key);
+      passwordHash = calculateSHA256(decryptionKey);
 
-      if (db_key_hash == password_hash) {
+      if (databaseKeyHash == passwordHash) {
         db_handle.close();
-        decrypt_db();
+        decryptDatabase();
         break;
       } else {
         cout << "\nInvalid password [" << i - 1 << " attempts remaining]\n"
