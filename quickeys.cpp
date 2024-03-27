@@ -214,7 +214,7 @@ private:
       cout << "[7] Erase database" << endl;
       cout << "[8] Exit" << endl;
       int option;
-      cout << "\nSecureKey~$ ";
+      cout << "\nQuicKeys~$ ";
       cin >> option;
 
       if (option == 1) {
@@ -245,7 +245,7 @@ private:
       cout << "Database has no records";
     }
 
-    vector<vector<string>> table;
+    vector<vector<string> > table;
     istringstream iss(content);
     string line;
 
@@ -261,7 +261,7 @@ private:
       table.push_back(row);
     }
 
-    cout << "id\tusername/email\tpassword\tplatform" << endl;
+    cout << "id | username/email | password | platform" << endl;
     for (const auto &row : table) {
       for (const auto &item : row) {
         cout << item << "\t";

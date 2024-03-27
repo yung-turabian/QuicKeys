@@ -1,17 +1,17 @@
 CC=g++
 CFLAGS=-std=gnu++17 -lssl -lcrypto -lncurses
-TARGET=skey
+TARGET=quickeys
 
-$(TARGET): skey.cpp
-	$(CC) $(CFLAGS) -o $(TARGET) skey.cpp
+$(TARGET): quickeys.cpp
+	$(CC) $(CFLAGS) -o $(TARGET) quickeys.cpp
 
 install:
-	@echo "Installing..."
-	@chmod +x skey
-	@cp skey /usr/local/bin/
+	@echo "Installing QuicKeys..."
+	@chmod +x quickeys
+	@cp quickeys /usr/local/bin/
 	@echo "Done!"
 
 uninstall:
 	@echo "Uninstalling..."
-	@rm /usr/local/bin/skey
+	@rm /usr/local/bin/quickeys
 	@echo "Done!"
