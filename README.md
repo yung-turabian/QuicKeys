@@ -1,8 +1,10 @@
-# SecureKey (or skey)
+# QuicKeys
 
 is a terminal app for secure and personal password management. Built with C++.
 
-<img src="logo.png" alt="logo" width="200"/>
+<p align="center">
+  <img src="logo.png" alt="logo" width="200"/>
+</p>
 
 ## Installation
 
@@ -10,17 +12,17 @@ Below I've provided build instructions as I've yet to work with package manageme
 
 # Build
 ```bash
-$ git clone https://github.com/yung-turabian/skey.git
-$ sudo make install -C skey
-$ rm -rf skey
+git clone https://github.com/yung-turabian/QuicKeys.git  &&
+sudo make install -C QuicKeys &&
+rm -rf QuicKeys
 ```
 
 ## Usage
 
-The way SecureKey works is that on UNIX machines a .passwords file will be created in the home directory where the encrypted passwords will be stored. On Windows the same will occur but instead in the current user's directory. 
+The way QuicKeys works is that on UNIX machines a .passwords file will be created in the home directory where the encrypted passwords will be stored. On Windows the same will occur but instead in the current user's directory. 
 
 ```bash
-$ skey
+$ quickeys
 
 Please Enter Decryption key:
 
@@ -33,7 +35,10 @@ Please Enter Decryption key:
 [7] Erase database
 [8] Exit
 
-SecureKey~$ 1
+QuicKeys~$ 1
+
+id | username/email | password | platform
+1	dummy@gmail.com	password123 Google	
 ```
 
 ## Contributing
