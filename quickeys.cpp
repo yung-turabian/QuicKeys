@@ -117,7 +117,8 @@ private:
 
   void decryptDatabase() {
     // Decrypting with AES-CBC
-    if (!ciphertext.empty()) {
+    if (!ciphertext.empty()) 
+		{
       AES_KEY aes_key;
       AES_set_decrypt_key(
           reinterpret_cast<const unsigned char *>(decryptionKey.c_str()), 128,
@@ -142,11 +143,14 @@ private:
 
       recordsCount = countRecords(content, '|');
       cout << "\u2714 " << recordsCount << " records found" << endl;
-    } else {
+    } 
+		else 
+		{
       content = "";
       recordsCount = 0;
       cout << "Database has no records.";
     }
+
     displayOptions();
   }
 
@@ -203,8 +207,12 @@ private:
     return "not_found";
   }
 
-  void displayOptions() {
-    while (1) {
+  void displayOptions() 
+	{
+		bool shouldExit = false;
+		int inputError = 0;
+
+    while (!shouldExit) {
       cout << "\n[1] Show credentials" << endl;
       cout << "[2] Add credentials" << endl;
       cout << "[3] Edit credentials" << endl;
@@ -213,30 +221,66 @@ private:
       cout << "[6] Backup database" << endl;
       cout << "[7] Erase database" << endl;
       cout << "[8] Exit" << endl;
-      int option;
-      cout << "\nQuicKeys~$ ";
-      cin >> option;
 
-      if (option == 1) {
-        showCredentials();
-      } else if (option == 2) {
-        addCredentials();
-      } else if (option == 3) {
-        editCredentials();
-      } else if (option == 4) {
-        deleteCredentials();
-      } else if (option == 5) {
-        changeDatabasePassword();
-      } else if (option == 6) {
-        backupDatabase();
-      } else if (option == 7) {
-        eraseDatabase();
-      } else if (option == 8) {
-        cout << "Goodbye" << endl;
-        break;
-      } else {
-        cout << "Invalid option!" << endl;
-      }
+      int option;
+			char input[100];
+		  
+      fprintf(stdout, "\n> ");
+			if(inputError != 0) {
+				switch(inputError) {
+						case 1:
+							fprintf(stderr, "Invalid input. Please enter an integer.\n");
+							inputError = 0;
+							break;
+						default:
+							break;
+				}
+			}
+
+					
+			if(fgets(input, sizeof(input), stdin) != NULL) {
+		      fprintf(stdout, "\033[2J");
+				  fprintf(stdout, "\033[H");
+
+					if(sscanf(input, "%d", &option) == 1) {
+							switch(option)
+							{
+									case 1:
+										showCredentials();
+										break;
+									case 2:
+										addCredentials();
+										break;
+									case 3:
+										editCredentials();
+										break;
+									case 4:
+										deleteCredentials();
+										break;
+									case 5:
+										changeDatabasePassword();
+										break;
+									case 6:
+										backupDatabase();
+										break;
+									case 7:
+										eraseDatabase();
+										break;
+									case 8:
+										fprintf(stdout, "Goodbye!\n");
+										shouldExit = true;
+										break;
+									default:
+										break;
+							}
+					} else {
+							inputError = 1;
+					}
+			} else {
+						fprintf(stderr, "Error reading input.\n");
+						shouldExit = true;
+			}
+
     }
   }
 
@@ -261,7 +305,7 @@ private:
       table.push_back(row);
     }
 
-    cout << "id | username/email | password | platform" << endl;
+    fprintf(stdout, "id | username/email | password | platform");
     for (const auto &row : table) {
       for (const auto &item : row) {
         cout << item << "\t";
@@ -550,7 +594,9 @@ public:
         db_handle.close();
         decryptDatabase();
         break;
-      } else {
+      } 
+			else 
+			{
         cout << "\nInvalid password [" << i - 1 << " attempts remaining]\n"
              << endl;
       }
