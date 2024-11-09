@@ -1,5 +1,5 @@
 CC=g++
-CFLAGS=-std=gnu++17 -lssl -lcrypto -lncurses
+CFLAGS=-std=gnu++17 -lgpgme -lncurses
 TARGET=quickeys
 
 $(TARGET): quickeys.cpp

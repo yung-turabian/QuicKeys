@@ -11,10 +11,12 @@
 #include <stdexcept>
 #include <string>
 
-#include <openssl/aes.h>
-#include <openssl/evp.h>
-#include <openssl/rand.h>
-#include <openssl/sha.h>
+#include <gpgme.h>
+
+// #include <openssl/aes.h>
+// #include <openssl/evp.h>
+// #include <openssl/rand.h>
+// #include <openssl/sha.h>
 
 #include <cstdlib>
 #include <unistd.h>
@@ -62,6 +64,7 @@ string checkDatabasePath(const string &pathToDatabase) {
   }
 }
 
+/*
 string calculateSHA256(const string &input) {
   unsigned char hash[SHA256_DIGEST_LENGTH];
   string hashStr;
@@ -81,7 +84,7 @@ string calculateSHA256(const string &input) {
   hashStr = ss.str();
 
   return hashStr;
-}
+}*/
 
 int countRecords(const string &content, char delimiter) {
   stringstream ss(content);
@@ -115,6 +118,7 @@ private:
   string content;
   int recordsCount;
 
+	/*
   void decryptDatabase() {
     // Decrypting with AES-CBC
     if (!ciphertext.empty()) 
@@ -152,8 +156,9 @@ private:
     }
 
     displayOptions();
-  }
+  }*/
 
+	/*
   void saveDatabase() {
     ofstream db_handle(pathToDatabase, ios::binary);
     vector<unsigned char> ciphertext;
@@ -205,7 +210,7 @@ private:
       }
     }
     return "not_found";
-  }
+  }*/
 
   void displayOptions() 
 	{
@@ -467,6 +472,7 @@ private:
     }
   }
 
+	/*
   void changeDatabasePassword() {
     while (true) {
       string current_password;
@@ -500,8 +506,9 @@ private:
       cout << "Decryption key updated successfully" << endl;
       break;
     }
-  }
+  }*/
 
+	/*
   void backupDatabase() {
     if (recordsCount != 0) {
       for (int i = 0; i < 3; ++i) {
@@ -523,8 +530,9 @@ private:
     } else {
       cout << "No records to backup\n";
     }
-  }
+  }*/
 
+	/*
   void eraseDatabase() {
     if (recordsCount != 0) {
       for (int i = 0; i < 3; ++i) {
@@ -545,7 +553,7 @@ private:
     } else {
       cout << "No records to erase\n";
     }
-  }
+  }*/
 
 public:
   PasswordManager() {
